@@ -81,6 +81,11 @@ if( NOT WIN32 )
   set_target_properties(bnetserver PROPERTIES
     COMPILE_DEFINITIONS _TRINITY_BNET_CONFIG="${CONF_DIR}/bnetserver.conf"
   )
+  
+  set(bnetserver_LINK_FLAGS "-lnsl -lsocket ${bnetserver_LINK_FLAGS}")
+  
+  set_target_properties(bnetserver PROPERTIES LINK_FLAGS "${bnetserver_LINK_FLAGS}")
+  
 endif()
 
 target_link_libraries(bnetserver
