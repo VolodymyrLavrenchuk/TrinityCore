@@ -74,6 +74,8 @@ These control the version of Winsock used by G3D.
     #define G3D_LINUX
 #elif defined(__APPLE__)
     #define G3D_LINUX
+#elif defined(sun) || defined(__sun__)
+    #define G3D_LINUX
 
    // Prevent OS X fp.h header from being included; it defines
    // pi as a constant, which creates a conflict with G3D
