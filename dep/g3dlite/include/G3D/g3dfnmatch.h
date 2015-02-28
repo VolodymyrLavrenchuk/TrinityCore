@@ -56,6 +56,7 @@ namespace G3D {
 
 #else 
 
+#       define FNM_CASEFOLD    0x10      /* Case insensitive search. */    
     // On non-windows systems, include fnmatch directly
 #   include <fnmatch.h>
 #endif
