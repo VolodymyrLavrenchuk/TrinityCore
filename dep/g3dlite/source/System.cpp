@@ -58,6 +58,7 @@
 #   include <sys/ioctl.h>
 #   include <sys/time.h>
 #   include <pthread.h>
+#   include <sys/filio.h>
 
 #elif defined(G3D_OSX)
 
