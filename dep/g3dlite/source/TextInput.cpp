@@ -1223,13 +1223,13 @@ void TextInput::initFromString(const char* str, int len, const Settings& setting
 }
 
 
-TextInput::TextInput(FS fs, const std::string& str, const Settings& opt) {
+TextInput::TextInput(_FS fs, const std::string& str, const Settings& opt) {
     (void)fs;
     initFromString(str.c_str(), (int)str.size(), opt);
 }
 
 
-TextInput::TextInput(FS fs, const char* str, size_t len, const Settings& opt) : options(opt) {
+TextInput::TextInput(_FS fs, const char* str, size_t len, const Settings& opt) : options(opt) {
     (void)fs;
     initFromString(str, (int)len, opt);
 }

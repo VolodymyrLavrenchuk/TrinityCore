@@ -572,16 +572,16 @@ public:
 
     TextInput(const std::string& filename, const Settings& settings = Settings());
 
-    enum FS {FROM_STRING};
+    enum _FS {FROM_STRING};
     /** Creates input directly from a string.  The first argument must be
         TextInput::FROM_STRING.
     */
-    TextInput(FS fs, const std::string& str, const Settings& settings = Settings());
+    TextInput(_FS fs, const std::string& str, const Settings& settings = Settings());
 
     /** Creates input directly from a fixed-length, non-NULL terminated string.  The first argument must be
         TextInput::FROM_STRING.
     */
-    TextInput(FS fs, const char* str, size_t strLen, const Settings& settings = Settings());
+    TextInput(_FS fs, const char* str, size_t strLen, const Settings& settings = Settings());
 
     /** Returns true while there are tokens remaining. */
     bool hasMore();
