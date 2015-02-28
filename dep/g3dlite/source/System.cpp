@@ -921,12 +921,15 @@ void System::initTime() {
         tm* localTimeVals = localtime(&gmt);
     
         time_t local = gmt;
+
+      #if defined(HAVE_LOCALTIME_R) && defined(HAVE_TM_ZONE)
         
         if (localTimeVals) {
             // tm_gmtoff is already corrected for daylight savings.
             local = local + localTimeVals->tm_gmtoff;
         }
-        
+      #endif
+      
         m_realWorldGetTickTime0 = local;
     #endif
 }
