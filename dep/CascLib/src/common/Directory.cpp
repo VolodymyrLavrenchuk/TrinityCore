@@ -87,7 +87,9 @@ int ScanIndexDirectory(
     {
         while((dir_entry = readdir(dir)) != NULL)
         {
-            if(dir_entry->d_type != DT_DIR)
+            struct stat s;
+            stat(dir_entry->d_name, &s);
+            if(!(s.st_mode & S_IFDIR))
             {
                 pfnOnFileFound(dir_entry->d_name, MainIndexes, OldIndexArray, pvContext);
             }        
