@@ -59,6 +59,7 @@ These control the version of Winsock used by G3D.
 /** \def G3D_FREEBSD2*/
 /** \def G3D_LINUX*/
 /** \def G3D_OSX */
+/** \def SOLARIS */
 
 #ifdef _MSC_VER 
 #   define G3D_WINDOWS
@@ -76,6 +77,7 @@ These control the version of Winsock used by G3D.
     #define G3D_LINUX
 #elif defined(sun) || defined(__sun__)
     #define G3D_LINUX
+    #define SOLARIS
 
    // Prevent OS X fp.h header from being included; it defines
    // pi as a constant, which creates a conflict with G3D

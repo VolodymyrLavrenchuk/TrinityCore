@@ -922,7 +922,7 @@ void System::initTime() {
     
         time_t local = gmt;
 
-      #if defined(HAVE_LOCALTIME_R) && defined(HAVE_TM_ZONE)
+      #ifndef SOLARIS
         
         if (localTimeVals) {
             // tm_gmtoff is already corrected for daylight savings.
