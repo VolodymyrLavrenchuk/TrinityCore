@@ -386,13 +386,7 @@ struct PlayerCreateInfoAction
 
 typedef std::list<PlayerCreateInfoAction> PlayerCreateInfoActions;
 
-struct PlayerCreateInfoSkill
-{
-    uint16 SkillId;
-    uint16 Rank;
-};
-
-typedef std::list<PlayerCreateInfoSkill> PlayerCreateInfoSkills;
+typedef std::list<SkillRaceClassInfoEntry const*> PlayerCreateInfoSkills;
 
 struct PlayerInfo
 {
@@ -1285,6 +1279,9 @@ private:
     bool _isPvP;
 };
 
+static uint32 const DefaultTalentRowLevels[MAX_TALENT_TIERS] = { 15, 30, 45, 60, 75, 90, 100 };
+static uint32 const DKTalentRowLevels[MAX_TALENT_TIERS] = { 57, 58, 59, 60, 75, 90, 100 };
+
 struct PlayerTalentInfo
 {
     PlayerTalentInfo() :
@@ -1871,7 +1868,7 @@ class Player : public Unit, public GridObject<Player>
         void ResetSpells(bool myClassOnly = false);
         void LearnCustomSpells();
         void LearnDefaultSkills();
-        void LearnDefaultSkill(uint32 skillId, uint16 rank);
+        void LearnDefaultSkill(SkillRaceClassInfoEntry const* rcInfo);
         void LearnQuestRewardedSpells();
         void LearnQuestRewardedSpells(Quest const* quest);
         void LearnSpellHighestRank(uint32 spellid);
