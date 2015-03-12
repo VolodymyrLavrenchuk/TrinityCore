@@ -8744,12 +8744,26 @@ void Player::SendLoot(ObjectGuid guid, LootType loot_type)
 
     if (permission != NONE_PERMISSION)
     {
+        LootMethod _lootMethod = FREE_FOR_ALL;
+        if (Group* group = GetGroup())
+        {
+            if (Creature* creature = GetMap()->GetCreature(guid))
+            {
+                if (Player* recipient = creature->GetLootRecipient())
+                {
+                    if (group == recipient->GetGroup())
+                        _lootMethod = group->GetLootMethod();
+                }
+            }
+        }
+
         SetLootGUID(guid);
 
         WorldPackets::Loot::LootResponse packet;
         packet.LootObj = guid;
         packet.Owner = loot->GetGUID();
-        packet.LootMethod = loot_type;
+        packet.LootMethod = _lootMethod;
+        packet.AcquireReason = loot_type;
         if (!GetGroup())
             packet.PersonalLooting = true;
         else
@@ -12918,11 +12932,11 @@ void Player::SendBuyError(BuyResult msg, Creature* creature, uint32 item, uint32
 void Player::SendSellError(SellResult msg, Creature* creature, ObjectGuid guid)
 {
     TC_LOG_DEBUG("network", "WORLD: Sent SMSG_SELL_RESPONSE");
-    WorldPacket data(SMSG_SELL_RESPONSE, (8+8+1));  // last check 4.3.4
-    data << (creature ? creature->GetGUID() : ObjectGuid::Empty);
-    data << guid;
-    data << uint8(msg);
-    GetSession()->SendPacket(&data);
+    WorldPackets::Item::SellResponse sellResponse;
+    sellResponse.VendorGUID = (creature ? creature->GetGUID() : ObjectGuid::Empty);
+    sellResponse.ItemGUID = guid;
+    sellResponse.Reason = msg;
+    GetSession()->SendPacket(sellResponse.Write());
 }
 
 bool Player::IsUseEquipedWeapon(bool mainhand) const
